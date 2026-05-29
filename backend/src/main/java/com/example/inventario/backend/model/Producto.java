@@ -22,6 +22,6 @@ public class Producto {
     private String nombre;
     @Column(name = "precio")
     private BigDecimal precio;
-    @Column(name = "cantidad en stock", nullable = false)
-    private String cantidadEnStock;
+    @Column(name = "cantidad_en_stock", nullable = false)
+    private Integer cantidadEnStock;
 }

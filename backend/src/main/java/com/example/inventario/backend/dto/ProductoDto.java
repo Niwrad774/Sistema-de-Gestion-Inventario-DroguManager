@@ -16,5 +16,5 @@ public class ProductoDto {
     private Long id;
     private String nombre;
     private BigDecimal precio;
-    private String cantidadEnStock;
+    private Integer cantidadEnStock;
 }
