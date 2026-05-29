@@ -1,122 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import ProtectedRoute from './components/ProtectedRoute';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import CatalogoPage from './pages/cliente/CatalogoPage';
+import PerfilPage from './pages/cliente/PerfilPage';
+
+// Componentes Placeholder para las otras vistas que se implementarán después
+const Placeholder = ({ title }) => (
+  <div className="card text-center mt-2">
+    <h2 style={{ color: 'var(--color-primary)' }}>{title}</h2>
+    <p>Esta vista está en construcción.</p>
+  </div>
+);
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-container">
+      {/* El Header se encarga internamente de no renderizarse si no hay usuario */}
+      <Header />
+      
+      <main className="main-content">
+        <Routes>
+          {/* Rutas Públicas */}
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/registro" element={<RegisterPage />} />
 
-      <div className="ticks"></div>
+          {/* Rutas de Cliente (COMPRADOR) */}
+          <Route path="/cliente/inicio" element={
+            <ProtectedRoute allowedRoles={['COMPRADOR']}>
+              <CatalogoPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/cliente/carrito" element={
+            <ProtectedRoute allowedRoles={['COMPRADOR']}>
+              <Placeholder title="Mi Carrito" />
+            </ProtectedRoute>
+          } />
+          <Route path="/cliente/pedidos" element={
+            <ProtectedRoute allowedRoles={['COMPRADOR']}>
+              <Placeholder title="Mis Pedidos" />
+            </ProtectedRoute>
+          } />
+          <Route path="/cliente/perfil" element={
+            <ProtectedRoute allowedRoles={['COMPRADOR']}>
+              <PerfilPage />
+            </ProtectedRoute>
+          } />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          {/* Rutas de Gestor de Pedidos */}
+          <Route path="/gestor/inicio" element={
+            <ProtectedRoute allowedRoles={['GESTOR_PEDIDOS']}>
+              <Placeholder title="Gestión de Pedidos" />
+            </ProtectedRoute>
+          } />
+          <Route path="/gestor/pedido/:id" element={
+            <ProtectedRoute allowedRoles={['GESTOR_PEDIDOS']}>
+              <Placeholder title="Controlar Pedido" />
+            </ProtectedRoute>
+          } />
+          <Route path="/gestor/facturas" element={
+            <ProtectedRoute allowedRoles={['GESTOR_PEDIDOS']}>
+              <Placeholder title="Mis Facturas Generadas" />
+            </ProtectedRoute>
+          } />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+          {/* Rutas de Administrador de Inventario */}
+          <Route path="/admin/agregar-producto" element={
+            <ProtectedRoute allowedRoles={['ADMIN_INVENTARIO']}>
+              <Placeholder title="Agregar Producto al Inventario" />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;

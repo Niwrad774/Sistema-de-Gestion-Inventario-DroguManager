@@ -14,7 +14,7 @@ public class FacturaController {
 
     private final FacturaService facturaService;
 
-    // Actor: Administrador de Inventario y Facturas
+    // Actor: Gestor de Pedidos
     // POST /api/facturas/generar/{pedidoId}
     // Genera la factura para un pedido y guarda el archivo .txt en el servidor
     @PostMapping("/generar/{pedidoId}")
@@ -23,7 +23,7 @@ public class FacturaController {
         return new ResponseEntity<>(factura, HttpStatus.CREATED);
     }
 
-    // Actor: Administrador de Inventario y Facturas
+    // Actor: Gestor de Pedidos
     // GET /api/facturas/{id}
     // Consulta una factura por su propio ID
     @GetMapping("/{id}")
