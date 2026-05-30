@@ -20,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -72,6 +74,13 @@ public class FacturaServiceImpl implements FacturaService {
         Factura factura = facturaRepository.findByPedidoId(pedidoId)
                 .orElseThrow(() -> new ResourceNotFoundException("No existe factura para el pedido con id: " + pedidoId));
         return FacturaMapper.mapearAResponseDto(factura);
+    }
+
+    @Override
+    public List<FacturaResponseDto> listarFacturas() {
+        return facturaRepository.findAll().stream()
+                .map(FacturaMapper::mapearAResponseDto)
+                .collect(Collectors.toList());
     }
 
     // --- Método privado: genera el archivo .txt de la factura ---

@@ -39,6 +39,7 @@ const Header = () => {
         {usuario.rol === 'ADMIN_INVENTARIO' && (
           <>
             <span className="header-link" onClick={handleInicioClick}>Inicio</span>
+            <span className="header-link" onClick={() => navigate('/admin/facturas')}>Facturas</span>
             <div className="dropdown">
               <span className="header-link" style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                 Inventario <span style={{ fontSize: '0.7em' }}>▼</span>

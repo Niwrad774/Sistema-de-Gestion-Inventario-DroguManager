@@ -2,6 +2,8 @@ package com.example.inventario.backend.service;
 
 import com.example.inventario.backend.dto.FacturaResponseDto;
 
+import java.util.List;
+
 public interface FacturaService {
     // Genera la factura: la guarda en BD y crea el archivo .txt
     FacturaResponseDto generarFactura(Long pedidoId);
@@ -11,4 +13,7 @@ public interface FacturaService {
 
     // Consulta una factura existente por el ID del pedido al que pertenece
     FacturaResponseDto obtenerFacturaPorPedidoId(Long pedidoId);
+
+    // Lista todas las facturas registradas
+    List<FacturaResponseDto> listarFacturas();
 }

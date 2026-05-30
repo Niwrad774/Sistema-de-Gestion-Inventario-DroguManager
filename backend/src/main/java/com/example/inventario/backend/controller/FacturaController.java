@@ -38,4 +38,11 @@ public class FacturaController {
     public ResponseEntity<FacturaResponseDto> consultarFacturaPorPedido(@PathVariable Long pedidoId) {
         return ResponseEntity.ok(facturaService.obtenerFacturaPorPedidoId(pedidoId));
     }
+
+    // GET /api/facturas
+    // Lista todas las facturas registradas
+    @GetMapping
+    public ResponseEntity<List<FacturaResponseDto>> listarFacturas() {
+        return ResponseEntity.ok(facturaService.listarFacturas());
+    }
 }

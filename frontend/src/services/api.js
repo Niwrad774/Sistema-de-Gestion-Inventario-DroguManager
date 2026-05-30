@@ -34,3 +34,29 @@ export const obtenerProductos = async () => {
   if (!response.ok) throw new Error('Error al obtener los productos');
   return response.json();
 };
+
+export const listarFacturas = async () => {
+  const response = await fetch(`${API_BASE}/facturas`);
+  if (!response.ok) throw new Error('Error al listar facturas');
+  return response.json();
+};
+
+export const obtenerFactura = async (facturaId) => {
+  const response = await fetch(`${API_BASE}/facturas/${facturaId}`);
+  if (!response.ok) throw new Error('Factura no encontrada');
+  return response.json();
+};
+
+export const obtenerFacturaPorPedido = async (pedidoId) => {
+  const response = await fetch(`${API_BASE}/facturas/pedido/${pedidoId}`);
+  if (!response.ok) throw new Error('Factura no encontrada para el pedido');
+  return response.json();
+};
+
+export const generarFactura = async (pedidoId) => {
+  const response = await fetch(`${API_BASE}/facturas/generar/${pedidoId}`, {
+    method: 'POST'
+  });
+  if (!response.ok) throw new Error('No se pudo generar la factura');
+  return response.json();
+};

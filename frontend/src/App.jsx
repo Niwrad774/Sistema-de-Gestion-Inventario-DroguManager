@@ -5,6 +5,9 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CatalogoPage from './pages/cliente/CatalogoPage';
 import PerfilPage from './pages/cliente/PerfilPage';
+import GestorFacturas from './pages/Gestor/Facturas';
+import AdminFacturas from './pages/Admin/FacturasList';
+import FacturaDetalle from './pages/Admin/FacturaDetalle';
 
 // Componentes Placeholder para las otras vistas que se implementarán después
 const Placeholder = ({ title }) => (
@@ -61,11 +64,21 @@ function App() {
           } />
           <Route path="/gestor/facturas" element={
             <ProtectedRoute allowedRoles={['GESTOR_PEDIDOS']}>
-              <Placeholder title="Mis Facturas Generadas" />
+              <GestorFacturas />
             </ProtectedRoute>
           } />
 
           {/* Rutas de Administrador de Inventario */}
+          <Route path="/admin/facturas" element={
+            <ProtectedRoute allowedRoles={['ADMIN_INVENTARIO']}>
+              <AdminFacturas />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/facturas/:id" element={
+            <ProtectedRoute allowedRoles={['ADMIN_INVENTARIO']}>
+              <FacturaDetalle />
+            </ProtectedRoute>
+          } />
           <Route path="/admin/agregar-producto" element={
             <ProtectedRoute allowedRoles={['ADMIN_INVENTARIO']}>
               <Placeholder title="Agregar Producto al Inventario" />
